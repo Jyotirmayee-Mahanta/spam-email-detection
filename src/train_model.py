@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
@@ -33,3 +34,11 @@ y_pred = model.predict(X_test)
 # Evaluation
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+import joblib
+import os
+
+os.makedirs("model", exist_ok=True)
+
+joblib.dump(model, "model/spam_model.pkl")
+joblib.dump(vectorizer, "model/tfidf_vectorizer.pkl")
