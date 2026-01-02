@@ -1,13 +1,12 @@
 import pandas as pd
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report
 
-# Load dataset
+# Load preprocessed dataset
 df = pd.read_csv("data/spam.csv", encoding="latin-1")
-
-# Keep required columns
 df = df[['v1', 'v2']]
 df.columns = ['label', 'message']
 
@@ -15,12 +14,7 @@ df.columns = ['label', 'message']
 df['label'] = df['label'].map({'ham': 0, 'spam': 1})
 
 # TF-IDF Vectorization
-vectorizer = TfidfVectorizer(
-    lowercase=True,
-    stop_words='english',
-    max_features=3000
-)
-
+vectorizer = TfidfVectorizer(stop_words='english')
 X = vectorizer.fit_transform(df['message'])
 y = df['label']
 
